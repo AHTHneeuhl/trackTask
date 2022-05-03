@@ -13,13 +13,23 @@ export default function App() {
     ]);
   };
 
+  const removeTaskHandler = (id) => {
+    setTasks((current) => current.filter((task) => task.id !== id));
+  };
+
   return (
     <View style={styles.appContainer}>
       <TaskInput onAddTask={addTaskHandler} />
       <View style={styles.tasksContainer}>
         <FlatList
           data={tasks}
-          renderItem={(task) => <TaskItem text={task.item.text} />}
+          renderItem={(task) => (
+            <TaskItem
+              taskId={task.item.id}
+              text={task.item.text}
+              onRemoveTask={removeTaskHandler}
+            />
+          )}
           keyExtractor={(item, index) => item.id}
         />
       </View>

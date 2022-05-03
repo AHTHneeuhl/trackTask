@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
-const TaskItem = ({ text }) => (
-  <View style={styles.taskItem}>
-    <Text style={styles.taskText}>{text}</Text>
-  </View>
+const TaskItem = ({ text, onRemoveTask, taskId }) => (
+  <Pressable onPress={() => onRemoveTask(taskId)}>
+    <View style={styles.taskItem}>
+      <Text style={styles.taskText}>{text}</Text>
+    </View>
+  </Pressable>
 );
 
 export default TaskItem;
