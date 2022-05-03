@@ -1,5 +1,7 @@
-import { useCallback, useState } from "react";
+import { Fragment, useCallback, useState } from "react";
 import { Button, FlatList, StyleSheet, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
+
 import TaskInput from "./components/TaskInput";
 import TaskItem from "./components/TaskItem";
 
@@ -28,31 +30,34 @@ export default function App() {
   };
 
   return (
-    <View style={styles.appContainer}>
-      <Button
-        title="Add new task"
-        color="#5E08CC"
-        onPress={startAddTaskHandler}
-      />
-      <TaskInput
-        onAddTask={addTaskHandler}
-        visible={showModal}
-        onCancel={endAddTaskHandler}
-      />
-      <View style={styles.tasksContainer}>
-        <FlatList
-          data={tasks}
-          renderItem={(task) => (
-            <TaskItem
-              taskId={task.item.id}
-              text={task.item.text}
-              onRemoveTask={removeTaskHandler}
-            />
-          )}
-          keyExtractor={(item, index) => item.id}
+    <Fragment>
+      <StatusBar style="light" />
+      <View style={styles.appContainer}>
+        <Button
+          title="Add new task"
+          color="#A065EC"
+          onPress={startAddTaskHandler}
         />
+        <TaskInput
+          onAddTask={addTaskHandler}
+          visible={showModal}
+          onCancel={endAddTaskHandler}
+        />
+        <View style={styles.tasksContainer}>
+          <FlatList
+            data={tasks}
+            renderItem={(task) => (
+              <TaskItem
+                taskId={task.item.id}
+                text={task.item.text}
+                onRemoveTask={removeTaskHandler}
+              />
+            )}
+            keyExtractor={(item, index) => item.id}
+          />
+        </View>
       </View>
-    </View>
+    </Fragment>
   );
 }
 

@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Button, Modal, StyleSheet, TextInput, View } from "react-native";
+import {
+  Button,
+  Modal,
+  StyleSheet,
+  TextInput,
+  View,
+  Image,
+} from "react-native";
 
 const TaskInput = ({ onAddTask, visible, onCancel }) => {
   const [taskText, setTaskText] = useState("");
@@ -16,6 +23,10 @@ const TaskInput = ({ onAddTask, visible, onCancel }) => {
   return (
     <Modal visible={visible} animationType="slide">
       <View style={styles.inputContainer}>
+        <Image
+          style={styles.styledImage}
+          source={require("../assets/images/task.png")}
+        />
         <TextInput
           value={taskText}
           onChangeText={taskInputHandler}
@@ -24,10 +35,10 @@ const TaskInput = ({ onAddTask, visible, onCancel }) => {
         />
         <View style={styles.buttonContainer}>
           <View style={styles.button}>
-            <Button title="Add task" onPress={addTaskHandler} />
+            <Button title="Cancel" onPress={onCancel} color="#F31282" />
           </View>
           <View style={styles.button}>
-            <Button title="Cancel" onPress={onCancel} />
+            <Button title="Add task" onPress={addTaskHandler} color="#B180F0" />
           </View>
         </View>
       </View>
@@ -42,14 +53,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 24,
     padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    backgroundColor: "#311B6B",
   },
   textInput: {
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#E4D0FF",
+    borderRadius: 6,
+    backgroundColor: "#E4D0FF",
+    color: "#120438",
     width: "100%",
     padding: 8,
   },
@@ -60,5 +72,10 @@ const styles = StyleSheet.create({
   button: {
     width: "30%",
     marginHorizontal: 8,
+  },
+  styledImage: {
+    width: 100,
+    height: 100,
+    margin: 20,
   },
 });
