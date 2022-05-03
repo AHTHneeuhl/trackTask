@@ -1,16 +1,26 @@
-import { useState } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { useCallback, useState } from "react";
+import { Button, FlatList, StyleSheet, View } from "react-native";
 import TaskInput from "./components/TaskInput";
 import TaskItem from "./components/TaskItem";
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
+  const startAddTaskHandler = useCallback(() => {
+    setShowModal(true);
+  });
+
+  const endAddTaskHandler = useCallback(() => {
+    setShowModal(false);
+  });
 
   const addTaskHandler = (taskText) => {
     setTasks((current) => [
       ...current,
       { text: taskText, id: Math.random().toString() },
     ]);
+    endAddTaskHandler();
   };
 
   const removeTaskHandler = (id) => {
@@ -19,7 +29,16 @@ export default function App() {
 
   return (
     <View style={styles.appContainer}>
-      <TaskInput onAddTask={addTaskHandler} />
+      <Button
+        title="Add new task"
+        color="#5E08CC"
+        onPress={startAddTaskHandler}
+      />
+      <TaskInput
+        onAddTask={addTaskHandler}
+        visible={showModal}
+        onCancel={endAddTaskHandler}
+      />
       <View style={styles.tasksContainer}>
         <FlatList
           data={tasks}
@@ -45,5 +64,6 @@ const styles = StyleSheet.create({
   },
   tasksContainer: {
     flex: 5,
+    marginTop: 24,
   },
 });
