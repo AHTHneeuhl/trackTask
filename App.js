@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { v1 as uuid } from "uuid";
+import {
+  Button,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 export default function App() {
   const [taskText, setTaskText] = useState("");
@@ -24,9 +32,13 @@ export default function App() {
         <Button title="Add task" onPress={addTaskHandler} />
       </View>
       <View style={styles.tasksContainer}>
-        {tasks.map((task) => (
-          <Text key={task}>{task}</Text>
-        ))}
+        <ScrollView>
+          {tasks.map((task) => (
+            <View key={uuid()} style={styles.taskItem}>
+              <Text style={styles.taskText}>{task}</Text>
+            </View>
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
@@ -56,5 +68,15 @@ const styles = StyleSheet.create({
   },
   tasksContainer: {
     flex: 5,
+  },
+  taskItem: {
+    margin: 8,
+    padding: 8,
+    borderRadius: 6,
+    backgroundColor: "#5E08CC",
+  },
+  taskText: {
+    color: "#fff",
+    textAlign: "center",
   },
 });
